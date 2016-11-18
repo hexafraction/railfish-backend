@@ -31,6 +31,7 @@ public class RouteMap {
 
     static NodeSet nst = new NodeSet();
     static HashMap<String, String[]> multisets = new HashMap<>();
+
     static {
         lines = new Line[]{lexington, canarsie, eighth, seventh, sixth, broadway, flushing, shuttle};
         buildMaps();
@@ -121,7 +122,7 @@ public class RouteMap {
     public static void main(String[] args) {
         printSummary();
         List<NodeSet.Node> path = pathfind("COOPER", "PENN");
-        System.out.println(evalCost(path)+":"+path);
+        System.out.println(evalCost(path) + ":" + path);
         System.out.println(getJSON("PENN", "COOPER"));
         System.out.println(getJSON("LEXASTOR0", "LEX230"));
         NodeSet.costOverrides.put("BWY14R-BWY23R", 4000);
@@ -129,16 +130,16 @@ public class RouteMap {
         System.out.println(getJSON("BWY140", "BWY280"));
     }
 
-    static List<NodeSet.Node> pathfind(String src, String dst){
+    static List<NodeSet.Node> pathfind(String src, String dst) {
         String[] srcs = multisets.getOrDefault(src, new String[]{src});
         String[] dsts = multisets.getOrDefault(dst, new String[]{dst});
         double bestCost = Double.MAX_VALUE;
         List<NodeSet.Node> best = null;
-        for(String src_ : srcs){
-            for(String dst_ : dsts){
+        for (String src_ : srcs) {
+            for (String dst_ : dsts) {
                 List<NodeSet.Node> candidate = nst.pathfind(nst.allNodes.get(src_), nst.allNodes.get(dst_));
                 double cost = evalCost(candidate);
-                if(cost<bestCost){
+                if (cost < bestCost) {
                     bestCost = cost;
                     best = candidate;
                 }
@@ -162,36 +163,85 @@ public class RouteMap {
                 elements.add(toSegment(prev, cur));
             }
             json.append(StringUtils.join(elements, ","));
+            json.append("], \"instructions\": [");
+            ArrayList<String> instructions = new ArrayList<>();
+            String lastService = "";
+            int stopCount = 0;
+            int ptr = 0;
+            boolean haveBoarded = false;
+            while (ptr < path.size() && path.get(ptr).service.equals("0")) {
+                ptr++;
+            }
+            instructions.add(String.format("\"Board the %s <span class=\\\"bullet %s\\\">%s</span> train at %s.\"",
+                    resolveDirection(path.get(ptr), path.get(ptr + 1)),
+                    "b"+path.get(ptr).stationRef.line.name.toLowerCase(),
+                    path.get(ptr).service, path.get(ptr).name
+            ));
+            lastService = path.get(ptr).service;
+            while(!Objects.equals(path.get(ptr).service, "0")) {
+
+                int count = 0;
+                while (path.get(++ptr).service.equals(lastService)) {
+                    count++;
+                }
+                instructions.add(String.format("\"Ride %d stations to %s.\"", count, path.get(ptr).name));
+                lastService = path.get(ptr).service;
+                if(ptr<(path.size()-1)){
+                    if(!path.get(ptr+1).service.equals("0")){
+                        instructions.add(String.format("\"Transfer to the %s <span class=\\\"bullet %s\\\">%s</span> train at %s.\"",
+                                resolveDirection(path.get(ptr), path.get(ptr + 1)),
+                                "b"+path.get(ptr).stationRef.line.name.toLowerCase(),
+                                path.get(ptr).service, path.get(ptr-1).name
+                        ));
+                    }
+                }
+            }
+            json.append(StringUtils.join(instructions, ","));
+
             json.append("]}");
             return json.toString();
-        } catch(Exception e){
+        } catch (Exception e) {
             return String.format("{\"result\":\"error\", \"error\":\"%s\"}",
-                    StringEscapeUtils.escapeJavaScript(e.toString()+":"+e.getMessage()+"//"+
+                    StringEscapeUtils.escapeJavaScript(e.toString() + ":" + e.getMessage() + "//" +
                             StringUtils.join(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toArray(), "//")));
         }
     }
 
+    private static String resolveDirection(NodeSet.Node node, NodeSet.Node node2) {
+        if (node.stationRef.line.name.equals("FLU")) {
+            return (node.stationRef.ordinal < node2.stationRef.ordinal) ? "34 St Hudson Yards bound" : "Queens bound";
+        } else if (node.stationRef.line.name.equals("SHU")) {
+            return (node.stationRef.ordinal < node2.stationRef.ordinal) ? "Times Sq bound" : "Grand Central bound";
+        } else if (node.stationRef.line.name.equals("CAN")) {
+            return (node.stationRef.ordinal < node2.stationRef.ordinal) ? "Brooklyn bound" : "8th Av bound";
+        } else {
+            return (node.stationRef.ordinal < node2.stationRef.ordinal) ? "uptown" : "downtown";
+        }
+    }
+
     static String toSegment(NodeSet.Node prev, NodeSet.Node cur) {
-        if(prev.stationRef!=null && cur.stationRef!=null && prev.stationRef.line==cur.stationRef.line){
-            if(prev.stationRef.ordinal > cur.stationRef.ordinal){
+        boolean rev = false;
+        if (prev.stationRef != null && cur.stationRef != null && prev.stationRef.line == cur.stationRef.line) {
+            if (prev.stationRef.ordinal > cur.stationRef.ordinal) {
                 NodeSet.Node temp = cur;
                 cur = prev;
                 prev = temp;
+                rev = true;
             }
-        } else if(prev.stationRef != null && cur.stationRef != null){
-            if(prev.stationRef.line.name.compareTo(cur.stationRef.line.name)>0){
+        } else if (prev.stationRef != null && cur.stationRef != null) {
+            if (prev.stationRef.line.name.compareTo(cur.stationRef.line.name) > 0) {
                 NodeSet.Node temp = cur;
                 cur = prev;
                 prev = temp;
             }
         }
-        return "\"" + prev.name + "-" + cur.name + "-" + (cur.service.equals(prev.service) ? cur.service : "X") + "\"";
+        return "\"" + prev.name + "-" + cur.name + "-" + (cur.service.equals(prev.service) ? cur.service : "X") + (rev?"_\"":"\"");
     }
 
     private static double evalCost(List<NodeSet.Node> candidate) {
         double sum = 0;
-        for(int i = 1; i < candidate.size(); i++){
-            sum+=nst.calcCost(candidate.get(i-1), candidate.get(i));
+        for (int i = 1; i < candidate.size(); i++) {
+            sum += nst.calcCost(candidate.get(i - 1), candidate.get(i));
         }
         return sum;
     }
@@ -256,15 +306,16 @@ public class RouteMap {
             }
         }
 
-        for(Line l : lines){
-            for(Station s : l.stations){
+        for (Line l : lines) {
+            for (Station s : l.stations) {
                 NodeSet.Node stationNode = new NodeSet.Node();
                 stationNode.name = s.name;
                 stationNode.service = "0";
-                stationNode.nameAndService = s.name+"0";
-                nst.allNodes.put(s.name+"0", stationNode);
-                for(String service : s.routes){
-                    NodeSet.Node nd = nst.allNodes.get(s.name+service);
+                stationNode.nameAndService = s.name + "0";
+                stationNode.stationRef = s;
+                nst.allNodes.put(s.name + "0", stationNode);
+                for (String service : s.routes) {
+                    NodeSet.Node nd = nst.allNodes.get(s.name + service);
                     nd.neighbours.add(stationNode);
                     stationNode.neighbours.add(nd);
                 }
