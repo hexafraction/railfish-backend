@@ -23,7 +23,7 @@ public class RouteMap {
     static Line sixth = new Line("6TH", st("6THLAFAYETTE", "B", "D", "F", "M"), st("6THW4", "B", "D", "F", "M"), st("6TH14", "F", "M"),
             st("6TH23", "F", "M"), st("6TH34", "B", "D", "F", "M"), st("6TH42", "B", "D", "F", "M"), st("6TH47", "B", "D", "F", "M"));
     static Line broadway = new Line("BWY", st("BWYPRINCE", "R", "W"), st("BWY8", "R", "W"), st("BWY14", "N", "Q", "R", "W"), st("BWY23", "R", "W"),
-            st("BWY28", "R", "W"), st("BWY34", "N", "Q", "R", "W"), st("BWY42", "N", "Q", "R", "W"), st("BWY49", "N", "Q", "R", "W"));
+            st("BWY28", "R", "W"), st("BWY34", "N", "Q", "R", "W"), st("BWY42", "N", "Q", "R", "W"), st("BWY49", "R", "W"));
     static Line flushing = new Line("FLU", st("FLU34", "7"), st("FLUTIMES", "7"), st("FLU5", "7"), st("FLUGRAND", "7"));
     static Line shuttle = new Line("SHU", st("SHUTIMES", "S"), st("SHUGRAND", "S"));
 
