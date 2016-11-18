@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class StationListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.getWriter().print("{\"stations\":[");
         resp.getWriter().println(
                 StringUtils.join(RouteMap.stations.values().stream().map(
