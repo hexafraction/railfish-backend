@@ -4,4 +4,12 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>routeServlet</servlet-name>
+    <servlet-class>edu.cooper.hack.railfish.backend.RouteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>routeServlet</servlet-name>
+    <url-pattern>/route</url-pattern>
+  </servlet-mapping>
 </web-app>
