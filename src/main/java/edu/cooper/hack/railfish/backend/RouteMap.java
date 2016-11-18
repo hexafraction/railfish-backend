@@ -124,7 +124,7 @@ public class RouteMap {
         List<NodeSet.Node> path = pathfind("COOPER", "PENN");
         System.out.println(evalCost(path) + ":" + path);
         System.out.println(getJSON("PENN", "COOPER"));
-        System.out.println(getJSON("LEXASTOR0", "LEX230"));
+        System.out.println(getJSON("UNIONSQ", "BWY340"));
         NodeSet.costOverrides.put("BWY14R-BWY23R", 4000);
         NodeSet.costOverrides.put("BWY23W-BWY28W", 4000);
         System.out.println(getJSON("BWY140", "BWY280"));
