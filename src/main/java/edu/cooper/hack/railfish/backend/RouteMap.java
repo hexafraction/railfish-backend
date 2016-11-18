@@ -149,7 +149,9 @@ public class RouteMap {
             json.append("]}");
             return json.toString();
         } catch(Exception e){
-            return String.format("{\"result\":\"error\", \"error\":\"%s\"}", StringEscapeUtils.escapeJavaScript(e.toString()+":"+e.getMessage()));
+            return String.format("{\"result\":\"error\", \"error\":\"%s\"}",
+                    StringEscapeUtils.escapeJavaScript(e.toString()+":"+e.getMessage()+"//"+
+                            StringUtils.join(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toArray(), "//")));
         }
     }
 
