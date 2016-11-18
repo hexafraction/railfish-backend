@@ -59,8 +59,18 @@ public class RouteMap {
         transfer("8TH42", "FLUTIMES", 10);
         transfer("SHUTIMES", "FLUTIMES");
         transfer("SHUGRAND", "FLUGRAND");
+
         multiset("COOPER", "BWY80", "LEXASTOR0");
         multiset("PENN", "8TH340", "7TH340");
+        multiset("UNIONSQ", "LEX140", "BWY140", "CANUNION");
+        multiset("14TH8TH", "8TH140", "CAN80");
+        multiset("WASHSQ", "6THW40", "8THW40");
+        multiset("GCT", "LEX420", "FLUGRAND", "SHUGRAND");
+        multiset("HERALDSQ", "6TH340", "BWY340");
+        multiset("TIMESSQ", "7TH420", "BWY420", "SHUTIMES", "FLUTIMES");
+        multiset("14TH6TH", "6TH140", "CAN60");
+        multiset("LAFLEX", "6THLAFAYETTE", "LEXBLEECKER");
+
         sameTrackTransfers.add("45");
         sameTrackTransfers.add("54");
         sameTrackTransfers.add("CE");

@@ -13,6 +13,7 @@ import java.util.List;
 public class RouteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.addHeader("Access-Control-Allow-Origin", "*");
         String src = req.getParameter("src");
         String dst = req.getParameter("dst");
         if(src==null||dst==null||src.trim().isEmpty()||dst.trim().isEmpty()){
