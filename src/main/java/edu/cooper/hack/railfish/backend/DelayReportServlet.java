@@ -17,7 +17,7 @@ public class DelayReportServlet extends HttpServlet {
             String action = req.getParameter("action");
             switch (action) {
                 case "add":
-                    NodeSet.costOverrides.put(req.getParameter("segment"), Integer.parseInt(req.getParameter("newtime")));
+                    NodeSet.costOverrides.put(req.getParameter("segment"), Integer.parseInt(req.getParameter("time")));
                     break;
                 case "remove":
                     NodeSet.costOverrides.remove(req.getParameter("segment"));

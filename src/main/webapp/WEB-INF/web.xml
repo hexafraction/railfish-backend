@@ -8,8 +8,16 @@
     <servlet-name>routeServlet</servlet-name>
     <servlet-class>edu.cooper.hack.railfish.backend.RouteServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>delayReportServlet</servlet-name>
+    <servlet-class>edu.cooper.hack.railfish.backend.DelayReportServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>routeServlet</servlet-name>
     <url-pattern>/route</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>delayReportServlet</servlet-name>
+    <url-pattern>/delay</url-pattern>
   </servlet-mapping>
 </web-app>
