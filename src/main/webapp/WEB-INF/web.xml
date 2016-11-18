@@ -12,6 +12,10 @@
     <servlet-name>delayReportServlet</servlet-name>
     <servlet-class>edu.cooper.hack.railfish.backend.DelayReportServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>stationListServlet</servlet-name>
+    <servlet-class>edu.cooper.hack.railfish.backend.StationListServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>routeServlet</servlet-name>
     <url-pattern>/route</url-pattern>
@@ -19,5 +23,9 @@
   <servlet-mapping>
     <servlet-name>delayReportServlet</servlet-name>
     <url-pattern>/delay</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>stationListServlet</servlet-name>
+    <url-pattern>/list</url-pattern>
   </servlet-mapping>
 </web-app>
