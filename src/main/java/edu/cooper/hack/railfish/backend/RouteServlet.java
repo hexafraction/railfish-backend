@@ -19,8 +19,10 @@ public class RouteServlet extends HttpServlet {
         if(src==null||dst==null||src.trim().isEmpty()||dst.trim().isEmpty()){
             resp.getWriter().println("{\"result\":\"error\", \"error\":\"src or dst is null or empty\"}");
         }
-        String json = RouteMap.getJSON(src, dst);
-        resp.getWriter().println(json);
+        else {
+            String json = RouteMap.getJSON(src, dst);
+            resp.getWriter().println(json);
+        }
     }
 
 

@@ -119,10 +119,10 @@ public class RouteMap {
     }
 
     public static void main(String[] args) {
-
+        printSummary();
         List<NodeSet.Node> path = pathfind("COOPER", "PENN");
         System.out.println(evalCost(path)+":"+path);
-        System.out.println(getJSON("COOPER", "PENN"));
+        System.out.println(getJSON("PENN", "COOPER"));
         System.out.println(getJSON("LEXASTOR0", "LEX230"));
     }
 
@@ -155,6 +155,19 @@ public class RouteMap {
             for (int i = 1; i < path.size(); i++) {
                 NodeSet.Node prev = path.get(i - 1);
                 NodeSet.Node cur = path.get(i);
+                if(prev.stationRef!=null && cur.stationRef!=null && prev.stationRef.line==cur.stationRef.line){
+                    if(prev.stationRef.ordinal > cur.stationRef.ordinal){
+                        NodeSet.Node temp = cur;
+                        cur = prev;
+                        prev = temp;
+                    }
+                } else if(prev.stationRef != null && cur.stationRef != null){
+                    if(prev.stationRef.line.name.compareTo(cur.stationRef.line.name)>0){
+                        NodeSet.Node temp = cur;
+                        cur = prev;
+                        prev = temp;
+                    }
+                }
                 elements.add("\"" + prev.name + "-" + cur.name + "-" + (cur.service.equals(prev.service) ? cur.service : "X") + "\"");
             }
             json.append(StringUtils.join(elements, ","));
