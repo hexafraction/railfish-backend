@@ -1,0 +1,19 @@
+{
+  "segments": [
+    //                                                              Transfer            West to east
+    "LEXBLEECKER-LEXASTOR-6", "LEXASTOR-LEX14-6", "LEX14-LEX42-5", "LEX42-SHUGRAND-X", "SHUTIMES-SHUGRAND-S",
+
+    "SHUTIMES-FLUTIMES-X", "FLUTIMES-FLU5-7", "FLU5-6TH42-D", "6TH34-6TH42-D", "6TH34-BWY34-X",
+
+    // This is a cross-platform transfer... No indication other than the route ID suddenly changes from R to W
+    "BWY28-6TH34-W", "BWY23-6TH28-R", "BWY14-6TH23-R", "BWY8-BWY14-R"
+  ],
+  "steps" : [
+    // I don't have user-friendly names so actual code will refer to "ASTOR" instead of "Astor Pl."
+    "Board an uptown <span class=\"lex\">6</span> train at <b>Astor Pl.</b>",
+    "Ride 1 stop to <b>14th St. Union Sq<b> and transfer to the <span class=\"lex\">5</span> train.",
+    "...",
+    "Ride 1 stop to <b>28th St.</b> and transfer to the <span class=\"bwy\">R</span> train.",
+    "Ride 3 stops to <b>14th St. Union Sq</b>. You will be at your destination."
+  ]
+}

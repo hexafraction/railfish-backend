@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/railfish-backend.iml" filepath="$PROJECT_DIR$/railfish-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webappRunnerSample.iml" filepath="$PROJECT_DIR$/webappRunnerSample.iml" />
     </modules>
   </component>
 </project>
