@@ -4,19 +4,20 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class Station {
+    String desc;
     String name;
     String[] routes;
     NodeSet.Node routeNodes;
     int ordinal;
     Line line;
-    public Station(String name, String... routes) {
+    public Station(String name, String desc, String... routes) {
         this.name = name;
         this.routes = routes;
-
+        this.desc = desc;
     }
 
-    public static Station st(String name, String... routes) {
-        Station st = new Station(name, routes);
+    public static Station st(String name, String desc, String... routes) {
+        Station st = new Station(name, desc, routes);
         return st;
     }
 

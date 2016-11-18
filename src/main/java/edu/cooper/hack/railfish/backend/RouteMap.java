@@ -13,19 +13,27 @@ public class RouteMap {
     static HashMap<String, Integer> transferTimes = new HashMap<>();
 
     static HashMap<String, Station> stations = new HashMap<>();
-    static Line lexington = new Line("LEX", st("LEXSPRING", "6"), st("LEXBLEECKER", "6"), st("LEXASTOR", "6"), st("LEX14", "4", "5", "6"), st("LEX23", "6"),
-            st("LEX28", "6"), st("LEX33", "6"), st("LEX42", "4", "5", "6"));
-    static Line canarsie = new Line("CAN", st("CAN8", "L"), st("CAN6", "L"), st("CANUNION", "L"));
-    static Line eighth = new Line("8TH", st("8THSPRING", "C", "E"), st("8THW4", "A", "C", "E"), st("8TH14", "A", "C", "E"), st("8TH23", "C", "E"),
-            st("8TH34", "A", "C", "E"), st("8TH42", "A", "C", "E"), st("8TH50", "C", "E"));
-    static Line seventh = new Line("7TH", st("7THHOUSTON", "1"), st("7THCHRISTOPHER", "1"), st("7TH14", "1", "2", "3"), st("7TH18", "1"),
-            st("7TH23", "1"), st("7TH28", "1"), st("7TH34", "1", "2", "3"), st("7TH42", "1", "2", "3"), st("7TH50", "1"));
-    static Line sixth = new Line("6TH", st("6THLAFAYETTE", "B", "D", "F", "M"), st("6THW4", "B", "D", "F", "M"), st("6TH14", "F", "M"),
-            st("6TH23", "F", "M"), st("6TH34", "B", "D", "F", "M"), st("6TH42", "B", "D", "F", "M"), st("6TH47", "B", "D", "F", "M"));
-    static Line broadway = new Line("BWY", st("BWYPRINCE", "R", "W"), st("BWY8", "R", "W"), st("BWY14", "N", "Q", "R", "W"), st("BWY23", "R", "W"),
-            st("BWY28", "R", "W"), st("BWY34", "N", "Q", "R", "W"), st("BWY42", "N", "Q", "R", "W"), st("BWY49", "R", "W"));
-    static Line flushing = new Line("FLU", st("FLU34", "7"), st("FLUTIMES", "7"), st("FLU5", "7"), st("FLUGRAND", "7"));
-    static Line shuttle = new Line("SHU", st("SHUTIMES", "S"), st("SHUGRAND", "S"));
+    static Line lexington = new Line("LEX", st("LEXSPRING", "Spring St", "6"), st("LEXBLEECKER", "Bleecker St",  "6"),
+            st("LEXASTOR", "Astor Pl",  "6"), st("LEX14", "14th St. Union Sq", "4", "5", "6"), st("LEX23", "23rd St", "6"),
+            st("LEX28", "28th St", "6"), st("LEX33", "33rd St", "6"), st("LEX42", "Grand Central 42nd St", "4", "5", "6"));
+    static Line canarsie = new Line("CAN", st("CAN8", "8th Av", "L"), st("CAN6", "6th Av", "L"), st("CANUNION", "Union Sq", "L"));
+    static Line eighth = new Line("8TH", st("8THSPRING", "Spring St", "C", "E"), st("8THW4", "West 4th St. Washington Sq", "A", "C", "E"),
+            st("8TH14", "14th St", "A", "C", "E"), st("8TH23", "23rd St", "C", "E"),
+            st("8TH34", "34th St. Penn Stn", "A", "C", "E"), st("8TH42", "Times Sq. 42nd St", "A", "C", "E"), st("8TH50", "5th St", "C", "E"));
+    static Line seventh = new Line("7TH", st("7THHOUSTON", "Houston St", "1"), st("7THCHRISTOPHER", "Christopher St. Sheridan Sq", "1"),
+            st("7TH14", "14th St", "1", "2", "3"), st("7TH18", "18th St", "1"),
+            st("7TH23", "23rd St", "1"), st("7TH28", "28th St", "1"), st("7TH34", "34th St. Penn Stn", "1", "2", "3"), st("7TH42", "Times Sq. 42nd St", "1", "2", "3"),
+            st("7TH50", "50th St", "1"));
+    static Line sixth = new Line("6TH", st("6THLAFAYETTE", "Broadway-Lafayette St", "B", "D", "F", "M"), st("6THW4", "West 4th St, Washington Sq", "B", "D", "F", "M"),
+            st("6TH14", "14th St", "F", "M"), st("6TH23", "23rd St", "F", "M"), st("6TH34", "34th St. Herald Sq", "B", "D", "F", "M"),
+            st("6TH42", "42nd St. Bryant Park", "B", "D", "F", "M"), st("6TH47", "47th-50th Sts. Rockefeller Ctr", "B", "D", "F", "M"));
+    static Line broadway = new Line("BWY", st("BWYPRINCE", "Prince St", "R", "W"), st("BWY8", "8th St. NYU", "R", "W"),
+            st("BWY14", "14th St. Union Sq", "N", "Q", "R", "W"), st("BWY23", "23rd St", "R", "W"),
+            st("BWY28", "28th St", "R", "W"), st("BWY34", "34th St. Herald Sq", "N", "Q", "R", "W"), st("BWY42", "Times Sq. 42nd St", "N", "Q", "R", "W"),
+            st("BWY49", "49th St", "R", "W"));
+    static Line flushing = new Line("FLU", st("FLU34", "34th St. Hudson Yds", "7"), st("FLUTIMES", "Times Sq", "7"), st("FLU5", "5th Av", "7"),
+            st("FLUGRAND", "Grand Central","7"));
+    static Line shuttle = new Line("SHU", st("SHUTIMES", "Times Sq", "S"), st("SHUGRAND", "Grand Central", "S"));
 
     private static HashSet<String> sameTrackTransfers = new HashSet<>();
 
@@ -175,7 +183,7 @@ public class RouteMap {
             instructions.add(String.format("\"Board the %s <span class=\\\"bullet %s\\\">%s</span> train at %s.\"",
                     resolveDirection(path.get(ptr), path.get(ptr + 1)),
                     "b"+path.get(ptr).stationRef.line.name.toLowerCase(),
-                    path.get(ptr).service, path.get(ptr).name
+                    path.get(ptr).service, path.get(ptr).stationRef.desc
             ));
             lastService = path.get(ptr).service;
             while(!Objects.equals(path.get(ptr).service, "0")) {
@@ -184,14 +192,14 @@ public class RouteMap {
                 while (path.get(++ptr).service.equals(lastService)) {
                     count++;
                 }
-                instructions.add(String.format("\"Ride %d stations to %s.\"", count, path.get(ptr).name));
+                instructions.add(String.format("\"Ride %d %s to %s.\"", count, (count==1)?"station":"stations", path.get(ptr).stationRef.desc));
                 lastService = path.get(ptr).service;
                 if(ptr<(path.size()-1)){
                     if(!path.get(ptr+1).service.equals("0")){
                         instructions.add(String.format("\"Transfer to the %s <span class=\\\"bullet %s\\\">%s</span> train at %s.\"",
                                 resolveDirection(path.get(ptr), path.get(ptr + 1)),
                                 "b"+path.get(ptr).stationRef.line.name.toLowerCase(),
-                                path.get(ptr).service, path.get(ptr-1).name
+                                path.get(ptr).service, path.get(ptr-1).stationRef.desc
                         ));
                     }
                 }
