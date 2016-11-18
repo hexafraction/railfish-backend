@@ -19,7 +19,7 @@ public class RouteMap {
     static Line eighth = new Line("8TH", st("8THSPRING", "C", "E"), st("8THW4", "A", "C", "E"), st("8TH14", "A", "C", "E"), st("8TH23", "C", "E"),
             st("8TH34", "A", "C", "E"), st("8TH42", "A", "C", "E"), st("8TH50", "C", "E"));
     static Line seventh = new Line("7TH", st("7THHOUSTON", "1"), st("7THCHRISTOPHER", "1"), st("7TH14", "1", "2", "3"), st("7TH18", "1"),
-            st("7TH23", "1"), st("7TH28", "1"), st("7TH34", "1", "2", "3"), st("7TH42", "1", "2", "3"), st("7TH50", "1", "2", "3"));
+            st("7TH23", "1"), st("7TH28", "1"), st("7TH34", "1", "2", "3"), st("7TH42", "1", "2", "3"), st("7TH50", "1"));
     static Line sixth = new Line("6TH", st("6THLAFAYETTE", "B", "D", "F", "M"), st("6THW4", "B", "D", "F", "M"), st("6TH14", "F", "M"),
             st("6TH23", "F", "M"), st("6TH34", "B", "D", "F", "M"), st("6TH42", "B", "D", "F", "M"), st("6TH47", "B", "D", "F", "M"));
     static Line broadway = new Line("BWY", st("BWYPRINCE", "R", "W"), st("BWY8", "R", "W"), st("BWY14", "N", "Q", "R", "W"), st("BWY23", "R", "W"),
