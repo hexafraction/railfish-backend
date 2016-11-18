@@ -34,7 +34,7 @@ public class NodeSet {
 
     // n1 to n2
     double calcCost(Node n1, Node n2){
-        if(n1.service.equals("0") || n2.service.equals("0")) return 0.25;
+        if(n1.service.equals("0") || n2.service.equals("0")) return 5.25;
 //        if(n1.name.equals("LEX23")&&n2.name.equals("LEX28")) return 9999;
 //        if(n2.name.equals("LEX23")&&n1.name.equals("LEX28")) return 9999;
         Line l1 = n1.stationRef.line;

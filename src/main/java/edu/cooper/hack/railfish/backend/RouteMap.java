@@ -29,6 +29,7 @@ public class RouteMap {
 
     private static HashSet<String> sameTrackTransfers = new HashSet<>();
 
+    static NodeSet nst = new NodeSet();
     static HashMap<String, String[]> multisets = new HashMap<>();
     static {
         lines = new Line[]{lexington, canarsie, eighth, seventh, sixth, broadway, flushing, shuttle};
@@ -74,6 +75,8 @@ public class RouteMap {
         sameTrackTransfers.add("QN");
         sameTrackTransfers.add("RW");
         sameTrackTransfers.add("WR");
+        buildNodeSet();
+        //printSummary();
     }
 
 
@@ -106,12 +109,11 @@ public class RouteMap {
     }
 
     public static void main(String[] args) {
-        buildNodeSet();
-        printSummary();
+
         List<NodeSet.Node> path = pathfind("COOPER", "PENN");
         System.out.println(evalCost(path)+":"+path);
         System.out.println(getJSON("COOPER", "PENN"));
-        System.out.println(getJSON("SDHDS", "ASDASF"));
+        System.out.println(getJSON("LEXASTOR0", "LEX230"));
     }
 
     static List<NodeSet.Node> pathfind(String src, String dst){
@@ -174,7 +176,6 @@ public class RouteMap {
         transfer(st1, st2, 5);
     }
 
-    static NodeSet nst = new NodeSet();
 
     static void buildNodeSet() {
         for (Line l : lines) {
