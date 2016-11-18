@@ -63,14 +63,14 @@ public class RouteMap {
 
         multiset("COOPER", "BWY80", "LEXASTOR0");
         multiset("PENN", "8TH340", "7TH340");
-        multiset("UNIONSQ", "LEX140", "BWY140", "CANUNION");
+        multiset("UNIONSQ", "LEX140", "BWY140", "CANUNION0");
         multiset("14TH8TH", "8TH140", "CAN80");
         multiset("WASHSQ", "6THW40", "8THW40");
-        multiset("GCT", "LEX420", "FLUGRAND", "SHUGRAND");
+        multiset("GCT", "LEX420", "FLUGRAND0", "SHUGRAND0");
         multiset("HERALDSQ", "6TH340", "BWY340");
-        multiset("TIMESSQ", "7TH420", "BWY420", "SHUTIMES", "FLUTIMES");
+        multiset("TIMESSQ", "7TH420", "BWY420", "SHUTIMES0", "FLUTIMES0");
         multiset("14TH6TH", "6TH140", "CAN60");
-        multiset("LAFLEX", "6THLAFAYETTE", "LEXBLEECKER");
+        multiset("LAFLEX", "6THLAFAYETTE0", "LEXBLEECKER0");
 
         sameTrackTransfers.add("45");
         sameTrackTransfers.add("54");
@@ -124,7 +124,7 @@ public class RouteMap {
         List<NodeSet.Node> path = pathfind("COOPER", "PENN");
         System.out.println(evalCost(path) + ":" + path);
         System.out.println(getJSON("PENN", "COOPER"));
-        System.out.println(getJSON("UNIONSQ", "BWY340"));
+        System.out.println(getJSON("UNIONSQ", "FLUGRAND0"));
         NodeSet.costOverrides.put("BWY14R-BWY23R", 4000);
         NodeSet.costOverrides.put("BWY23W-BWY28W", 4000);
         System.out.println(getJSON("BWY140", "BWY280"));
