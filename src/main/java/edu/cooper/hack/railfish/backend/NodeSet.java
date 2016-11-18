@@ -32,8 +32,18 @@ public class NodeSet {
         }
     }
 
+    static HashMap<String, Integer> costOverrides = new HashMap<>();
+
+
     // n1 to n2
     double calcCost(Node n1, Node n2){
+        //System.out.println("Eval: "+RouteMap.toSegment(n1, n2));
+        if(costOverrides.containsKey(n2.nameAndService+"-"+n1.nameAndService)){
+            // This is very what? Inefficient. But if I made it efficient I would need to be crafty.
+            // And you will have trouble reading it. And you will what? Cry.
+            System.out.println("Overriding: "+n2.nameAndService+"-"+n1.nameAndService+":"+costOverrides.get(n2.nameAndService+"-"+n1.nameAndService));
+            return costOverrides.get(n2.nameAndService+"-"+n1.nameAndService);
+        }
         if(n1.service.equals("0") || n2.service.equals("0")) return 5.25;
 //        if(n1.name.equals("LEX23")&&n2.name.equals("LEX28")) return 9999;
 //        if(n2.name.equals("LEX23")&&n1.name.equals("LEX28")) return 9999;

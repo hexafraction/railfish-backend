@@ -124,6 +124,9 @@ public class RouteMap {
         System.out.println(evalCost(path)+":"+path);
         System.out.println(getJSON("PENN", "COOPER"));
         System.out.println(getJSON("LEXASTOR0", "LEX230"));
+        NodeSet.costOverrides.put("BWY14R-BWY23R", 4000);
+        NodeSet.costOverrides.put("BWY23W-BWY28W", 4000);
+        System.out.println(getJSON("BWY140", "BWY280"));
     }
 
     static List<NodeSet.Node> pathfind(String src, String dst){
@@ -153,22 +156,10 @@ public class RouteMap {
             json.append("{\"result\":\"ok\", \"error\":\"\", \"path\" : [");
             ArrayList<String> elements = new ArrayList<>();
             for (int i = 1; i < path.size(); i++) {
+
                 NodeSet.Node prev = path.get(i - 1);
                 NodeSet.Node cur = path.get(i);
-                if(prev.stationRef!=null && cur.stationRef!=null && prev.stationRef.line==cur.stationRef.line){
-                    if(prev.stationRef.ordinal > cur.stationRef.ordinal){
-                        NodeSet.Node temp = cur;
-                        cur = prev;
-                        prev = temp;
-                    }
-                } else if(prev.stationRef != null && cur.stationRef != null){
-                    if(prev.stationRef.line.name.compareTo(cur.stationRef.line.name)>0){
-                        NodeSet.Node temp = cur;
-                        cur = prev;
-                        prev = temp;
-                    }
-                }
-                elements.add("\"" + prev.name + "-" + cur.name + "-" + (cur.service.equals(prev.service) ? cur.service : "X") + "\"");
+                elements.add(toSegment(prev, cur));
             }
             json.append(StringUtils.join(elements, ","));
             json.append("]}");
@@ -178,6 +169,23 @@ public class RouteMap {
                     StringEscapeUtils.escapeJavaScript(e.toString()+":"+e.getMessage()+"//"+
                             StringUtils.join(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toArray(), "//")));
         }
+    }
+
+    static String toSegment(NodeSet.Node prev, NodeSet.Node cur) {
+        if(prev.stationRef!=null && cur.stationRef!=null && prev.stationRef.line==cur.stationRef.line){
+            if(prev.stationRef.ordinal > cur.stationRef.ordinal){
+                NodeSet.Node temp = cur;
+                cur = prev;
+                prev = temp;
+            }
+        } else if(prev.stationRef != null && cur.stationRef != null){
+            if(prev.stationRef.line.name.compareTo(cur.stationRef.line.name)>0){
+                NodeSet.Node temp = cur;
+                cur = prev;
+                prev = temp;
+            }
+        }
+        return "\"" + prev.name + "-" + cur.name + "-" + (cur.service.equals(prev.service) ? cur.service : "X") + "\"";
     }
 
     private static double evalCost(List<NodeSet.Node> candidate) {
