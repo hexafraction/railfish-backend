@@ -134,7 +134,9 @@ public class RouteMap {
         System.out.println(getJSON("PENN", "COOPER"));
         System.out.println(getJSON("UNIONSQ", "FLUGRAND0"));
         NodeSet.costOverrides.put("BWY14R-BWY23R", 4000);
-        NodeSet.costOverrides.put("BWY23W-BWY28W", 4000);
+        NodeSet.costOverrides.put("BWY14W-BWY23W", 4000);
+        NodeSet.costOverrides.put("BWY14Q-BWY34Q", 4000);
+        NodeSet.costOverrides.put("BWY14N-BWY34N", 4000);
         System.out.println(getJSON("BWY140", "BWY280"));
     }
 
@@ -192,7 +194,7 @@ public class RouteMap {
                 while (path.get(++ptr).service.equals(lastService)) {
                     count++;
                 }
-                instructions.add(String.format("\"Ride %d %s to %s.\"", count, (count==1)?"station":"stations", path.get(ptr).stationRef.desc));
+                if(count>0) instructions.add(String.format("\"Ride %d %s to %s.\"", count, (count==1)?"station":"stations", path.get(ptr).stationRef.desc));
                 lastService = path.get(ptr).service;
                 if(ptr<(path.size()-1)){
                     if(!path.get(ptr+1).service.equals("0")){
